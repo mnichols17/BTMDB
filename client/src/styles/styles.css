@@ -1,0 +1,35 @@
+body {
+    background: #FFF6D5;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+*:focus {
+    outline: none;
+}
+
+#home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#home input {
+    font-size: 1em;
+    border-radius: 10px;
+    padding: 3%;
+    padding-right: 0%;
+    border: 2px solid black;
+    width: 75%;
+}
+
+input::placeholder {
+    font-size: .9em;
+    color: lightgray;
+}
