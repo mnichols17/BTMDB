@@ -33,3 +33,33 @@ input::placeholder {
     font-size: .9em;
     color: lightgray;
 }
+
+#reviews {
+    margin-top: 5%;
+    width: 95%;
+    background: #ECF0F1;
+    font-size: .75em;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border-top-left-radius: 30px;
+}
+
+.review-title {
+    padding: 1%;
+    width: 40%;
+}
+
+.review-score {
+    text-align: center;
+    width: 15%;
+}
+
+.butter {
+    display: none;
+}
