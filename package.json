@@ -1,0 +1,31 @@
+{
+  "name": "btmdb",
+  "version": "1.0.0",
+  "description": "LCB's BTMDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnichols17/BTMDB.git"
+  },
+  "keywords": [
+    "LCB"
+  ],
+  "author": "MN",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mnichols17/BTMDB/issues"
+  },
+  "homepage": "https://github.com/mnichols17/BTMDB#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.17"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
