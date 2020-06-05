@@ -9,4 +9,10 @@ router.get("/", (req, res) => {
     .catch(err => res.json(err))
 })
 
+router.get("/test", (req, res) => {
+    Review.find({Title: "GoldenEye"})
+    .then(review => res.json(review))
+    .catch(err => res.json(err))
+})
+
 module.exports = router;
