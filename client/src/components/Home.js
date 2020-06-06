@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import matchSorter from 'match-sorter';
+import Select from 'react-select';
 
 import ReviewList from './ReviewList.js';
 
@@ -34,7 +35,7 @@ class Home extends React.Component {
 
     categoryChange = e => {
         this.setState({
-            category: e.target.value,
+            category: e.value,
             loadNum: 15
         })
     }
@@ -44,19 +45,20 @@ class Home extends React.Component {
     }
 
     render() {
+        const options = [
+            {value: "Butter Score", label: "Butter Score"},
+            {value: "Jeff", label: "Jeff D. Lowe"},
+            {value: "Jack", label: "Jack Kennedy"},
+            {value: "Trill", label: "Trill Ballins"},
+            {value: "Audience (LCB)", label: "Audience"}
+        ]
         const reviews = this.state.query === "" ? this.state.reviews : matchSorter(this.state.reviews, this.state.query, {keys: ['Title']});
         return (
             <div id="home">
                 <input onChange={this.queryChange} type="text" value={this.state.query} placeholder="Search by title or director" />
                 <div id="category">
-                    <label>Score Category: </label>
-                    <select id="categoy-select" value={this.state.category} onChange={this.categoryChange}>
-                        <option value="Butter Score">Butter Score</option>
-                        <option value="Jeff">Jeff</option>
-                        <option value="Jack">KenJac</option>
-                        <option value="Trill">Trill</option>
-                        <option value="Audience (LCB)">Audience</option>
-                    </select>
+                    <label>Score Category:</label>
+                    <Select onChange={this.categoryChange} id="select" label="Score Category" defaultValue={options[0]} options={options} isSearchable={false}/>
                 </div>
                 <ReviewList reviews={reviews.slice(0, this.state.loadNum)} getMore={this.getMore} category={this.state.category}/>
             </div>

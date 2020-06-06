@@ -35,21 +35,20 @@ input::placeholder {
 }
 
 #category {
-    width: 100%;
-    margin-top: 8%;
     display: flex;
-    align-items: baseline;
-    font-size: 1.05em;
+    width: 100%;
     justify-content: center;
+    align-items: center;
+    margin-top: 5%;
 }
 
 #category label {
     margin-right: 1%;
 }
 
-select {
-    font-size: inherit;
+#select {
     margin-left: 1%;
+    width: 50%;
 }
 
 #reviewList {
