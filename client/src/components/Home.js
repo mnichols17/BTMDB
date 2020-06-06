@@ -11,14 +11,16 @@ class Home extends React.Component {
         reviews: [],
         query: "",
         loadNum: 15,
-        category: "Butter Score"
+        category: "Butter Score",
+        isLoading: true
     }
 
     componentDidMount = () => {
         axios.get('/api/reviews')
         .then(res => {
             this.setState({
-                reviews: res.data
+                reviews: res.data,
+                isLoading: false
             })
         })
         .catch(res => {
@@ -52,15 +54,15 @@ class Home extends React.Component {
             {value: "Trill", label: "Trill Ballins"},
             {value: "Audience (LCB)", label: "Audience"}
         ]
-        const reviews = this.state.query === "" ? this.state.reviews : matchSorter(this.state.reviews, this.state.query, {keys: ['Title']});
+        const reviews = this.state.query === "" ? this.state.reviews : matchSorter(this.state.reviews, this.state.query, {keys: ['Title', "Director", "Genre", "Sub-Genre"]});
         return (
             <div id="home">
-                <input onChange={this.queryChange} type="text" value={this.state.query} placeholder="Search by title or director" />
+                <input onChange={this.queryChange} type="text" value={this.state.query} placeholder="Search by Title, Director or Genre" />
                 <div id="category">
                     <label>Score Category:</label>
                     <Select onChange={this.categoryChange} id="select" label="Score Category" defaultValue={options[0]} options={options} isSearchable={false}/>
                 </div>
-                <ReviewList reviews={reviews.slice(0, this.state.loadNum)} getMore={this.getMore} category={this.state.category}/>
+                {reviews.length !== 0 || this.state.isLoading ? <ReviewList reviews={reviews.slice(0, this.state.loadNum)} getMore={this.getMore} category={this.state.category} /> : <h3>No results found</h3>}
             </div>
         )
     }

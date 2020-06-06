@@ -5,14 +5,14 @@ const Review = require('../models/Review');
 
 router.get("/", (req, res) => {
     Review.find()
-    .select("-Director -Genre -Sub-Genre -Runtime")
+    .select("-Runtime")
     .then(reviews => res.json(reviews))
     .catch(err => res.json(err))
 })
 
 router.get("/test", (req, res) => {
     Review.find({Title: "GoldenEye"})
-    .select("-Director -Genre -Sub-Genre -Runtime")
+    .select("-Runtime")
     .then(review => res.json(review))
     .catch(err => res.json(err))
 })
