@@ -6,6 +6,21 @@ import ReactLoading from 'react-loading';
 
 import ReviewList from './ReviewList.js';
 
+const Filters = (props) => {
+    const options = [
+        {value: "default", label: "Best Match (Default)"},
+        {value: "high", label: "High to Low"},
+        {value: "low", label: "Low to High"},
+    ]
+
+    return (
+        <div className="filters">
+            <label>Sort By:</label>
+            <Select id="select" onChange={props.sortChange} label="Sort by: " defaultValue={options[0]} options={options} isSearchable={false}/>
+        </div>
+    )
+}
+
 class Home extends React.Component {
 
     state = {
@@ -13,6 +28,7 @@ class Home extends React.Component {
         query: "",
         loadNum: 15,
         category: "Butter Score",
+        sort: "default",
         isLoading: true
     }
 
@@ -47,6 +63,10 @@ class Home extends React.Component {
         this.setState(prevState => ({loadNum: prevState.loadNum + 15}))
     }
 
+    sortChange = e => {
+        this.setState({sort: e.value})
+    }
+
     render() {
         const options = [
             {value: "Butter Score", label: "Butter Score"},
@@ -55,15 +75,31 @@ class Home extends React.Component {
             {value: "Trill", label: "Trill Ballins"},
             {value: "Audience (LCB)", label: "Audience"}
         ]
+
         const reviews = this.state.query === "" ? this.state.reviews : matchSorter(this.state.reviews, this.state.query, {keys: ['Title', "Director", "Genre", "Sub-Genre"]});
+        
+        switch(this.state.sort){
+            case("high"):
+                reviews.sort((a,b) => b[this.state.category] - a[this.state.category])
+                break;
+            case("low"):
+                reviews.sort((a,b) => a[this.state.category] - b[this.state.category])
+                break;
+            default:
+                break;
+        }
+
         return (
             <div id="home">
                 <input onChange={this.queryChange} type="text" value={this.state.query} placeholder="Search by Title, Director or Genre" />
-                <div id="category">
-                    <label>Score Category:</label>
-                    <Select onChange={this.categoryChange} id="select" label="Score Category" defaultValue={options[0]} options={options} isSearchable={false}/>
+                <div id="selectDiv">
+                    <div className="filters">
+                        <label>Score Category:</label>
+                        <Select onChange={this.categoryChange} id="select" label="Score Category" defaultValue={options[0]} options={options} isSearchable={false}/>
+                    </div>
+                    <Filters sortChange={this.sortChange} />
                 </div>
-                {!this.state.isLoading ? <ReviewList reviews={reviews.slice(0, this.state.loadNum)} getMore={this.getMore} category={this.state.category} /> : <ReactLoading className="loadingIcon" type={'spin'} color={'#FEDC19'} height={100} width={100}/>}
+                {!this.state.isLoading ? <ReviewList sort={this.state.sort} reviews={reviews.slice(0, this.state.loadNum)} getMore={this.getMore} category={this.state.category} /> : <ReactLoading className="loadingIcon" type={'spin'} color={'#FEDC19'} height={100} width={100}/>}
             </div>
         )
     }

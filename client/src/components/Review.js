@@ -5,25 +5,30 @@ import ReactLoading from 'react-loading';
 
 export default function Review(props) {
 
+    let { movie } = useParams();
+
+    const [title, setTitle] = useState(movie)
     const [poster, setPoster] = useState(null);
     const [info, setInfo] = useState([]);
     const [isLoading, setLoading] = useState(true);
-    
-    let { title } = useParams();
+
+    if(title.includes("The") && title.includes(",")){
+        let the = title.substring(title.lastIndexOf(',') + 2)
+        setTitle(the + " " + title.substring(0, title.lastIndexOf(',')))
+    }
 
     useEffect(() => {
         const getData = async() => {
             try {
-                const response = await axios.get(`/api/reviews/${title}`)
+                const response = await axios.get(`/api/reviews/${movie}`)
                 const data = response.data.review[0];
                 const api_key = response.data.key;
                 setInfo(data)
-                if(title.includes("The") && title.includes(",")) title = title.substring(0, title.lastIndexOf(','))
+                
                 const date = data["Release Date"].split("/")
                 let poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]}&apikey=${api_key}`)
                 if(poster.data.Error || poster.data.Poster === "N/A") poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]-1}&apikey=${api_key}`)
                 setPoster(poster.data.Poster)
-                console.log(poster)
                 setLoading(false)
             }
             catch(e) {

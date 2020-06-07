@@ -38,22 +38,28 @@ input::placeholder {
     color: lightgray;
 }
 
-#category {
+#selectDiv {
     display: flex;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: center;
     margin-top: 5%;
-    font-size: .9em;
+    font-size: .85em;
 }
 
-#category label {
-    margin-right: 1%;
+.filters label {
+    margin-bottom: 2%;
+    margin-left: 10%;
+    align-self: flex-start;
 }
 
 #select {
-    margin-left: 1%;
-    width: 50%;
+    width: 90%;
     font-size: inherit;
 }
 

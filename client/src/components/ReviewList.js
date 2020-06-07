@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function ReviewList(props) {
+    
     return (
         <ul id="reviewList">
             <InfiniteScroll dataLength={props.reviews.length} next={props.getMore} hasMore={true}>
