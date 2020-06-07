@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import matchSorter from 'match-sorter';
 import Select from 'react-select';
+import ReactLoading from 'react-loading';
 
 import ReviewList from './ReviewList.js';
 
@@ -24,7 +25,7 @@ class Home extends React.Component {
             })
         })
         .catch(res => {
-            //alert("Error connecting to DB")
+            //alert("Error connecting to DB. Refresh the page and try again.")
         })
     }
 
@@ -62,7 +63,7 @@ class Home extends React.Component {
                     <label>Score Category:</label>
                     <Select onChange={this.categoryChange} id="select" label="Score Category" defaultValue={options[0]} options={options} isSearchable={false}/>
                 </div>
-                {reviews.length !== 0 || this.state.isLoading ? <ReviewList reviews={reviews.slice(0, this.state.loadNum)} getMore={this.getMore} category={this.state.category} /> : <h3>No results found</h3>}
+                {!this.state.isLoading ? <ReviewList reviews={reviews.slice(0, this.state.loadNum)} getMore={this.getMore} category={this.state.category} /> : <ReactLoading className="loadingIcon" type={'spin'} color={'#FEDC19'} height={100} width={100}/>}
             </div>
         )
     }

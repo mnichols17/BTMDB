@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function ReviewList(props) {
-
     return (
         <ul id="reviewList">
             <InfiniteScroll dataLength={props.reviews.length} next={props.getMore} hasMore={true}>
-                {props.reviews.map(review => {
+                {props.reviews.length !== 0 ? props.reviews.map(review => {
                     return (
                         <Link className="reviewLink" to={`/review/${review.Title}`} key={review._id}>
                             <li className="reviews">
@@ -16,7 +15,7 @@ export default function ReviewList(props) {
                             </li>
                         </Link>
                     )
-                })}
+                }): <h3>No Matching Reviews Found</h3>}
             </InfiniteScroll>
         </ul>
     );

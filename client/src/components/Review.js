@@ -1,36 +1,42 @@
 import React, {useState, useEffect} from 'react';
 import { useParams} from 'react-router-dom';
 import axios from 'axios';
-
-// If people refresh or come here seperately props data isn't gonna work
-// is loading for poster
+import ReactLoading from 'react-loading';
 
 export default function Review(props) {
 
     const [poster, setPoster] = useState(null);
     const [info, setInfo] = useState([]);
+    const [isLoading, setLoading] = useState(true);
     
-    const api_key = "a90be46"
     let { title } = useParams();
 
     useEffect(() => {
         const getData = async() => {
-            const response = await axios.get(`/api/reviews/${title}`)
-            const data = response.data[0]
-            setInfo(data)
-            if(title.includes("The") && title.includes(",")) title = title.substring(0, title.lastIndexOf(','))
-            const date = data["Release Date"].split("/")
-            let poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]}&apikey=${api_key}`)
-            if(poster.data.Error || poster.data.Poster === "N/A") poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]-1}&apikey=${api_key}`)
-            setPoster(poster.data.Poster)
+            try {
+                const response = await axios.get(`/api/reviews/${title}`)
+                const data = response.data.review[0];
+                const api_key = response.data.key;
+                setInfo(data)
+                if(title.includes("The") && title.includes(",")) title = title.substring(0, title.lastIndexOf(','))
+                const date = data["Release Date"].split("/")
+                let poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]}&apikey=${api_key}`)
+                if(poster.data.Error || poster.data.Poster === "N/A") poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]-1}&apikey=${api_key}`)
+                setPoster(poster.data.Poster)
+                console.log(poster)
+                setLoading(false)
+            }
+            catch(e) {
+                alert("That movie doesn't exist. Try again")
+                props.history.push("/")
+            }
         }
 
         getData();
     }, []);
 
-    console.log(info)
     return (
-        <div id="movie">
+        !isLoading ? <div id="movie">
             <h2>{title}</h2>
             <table id="movieReviews">
                 <thead>
@@ -79,6 +85,6 @@ export default function Review(props) {
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> : <ReactLoading className="loadingIcon" type={'spin'} color={'#FEDC19'} height={100} width={100}/>
     );
 }
