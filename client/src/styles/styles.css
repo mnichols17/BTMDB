@@ -40,6 +40,7 @@ input::placeholder {
     justify-content: center;
     align-items: center;
     margin-top: 5%;
+    font-size: .9em;
 }
 
 #category label {
@@ -49,6 +50,7 @@ input::placeholder {
 #select {
     margin-left: 1%;
     width: 50%;
+    font-size: inherit;
 }
 
 #reviewList {
@@ -59,7 +61,12 @@ input::placeholder {
     flex-direction: column;
 }
 
-#reviewList li {
+.reviewLink {
+    text-decoration: none;
+    color: black;
+}
+
+.reviews {
     display: flex;
     align-items: center;
 }
@@ -87,4 +94,71 @@ input::placeholder {
 
 .buttered {
     color: #32CD32;
+}
+
+#movie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#back {
+    float: left;
+}
+
+#movie img {
+    width: 100%;
+    max-width: 300px;
+}
+
+#movie h2 {
+    text-align: center;
+}
+
+#movieInfo {
+    margin-top: 5%;
+    width: 300px;
+    border: solid black 2px;
+    padding: 2%;
+    background: #F4F6F7;
+    box-shadow: 0 4px 4px -2px black;
+}
+
+#movieInfo, #movieInfo td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+#movieInfo td {
+    padding: 2%;
+}
+
+#movieInfo tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+#movieReviews {
+    margin: 0% 0% 10% 0%;
+    width: 90%;
+    background: #F4F6F7;
+    box-shadow: 0 4px 4px -2px black;
+}
+
+#movieReviews, #movieReviews td, #movieReviews th {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+#movieReviews th, #movieReviews td {
+    text-align: center;
+    width: 20%;
+}
+
+#movieReviews th {
+    background-color: #dddddd;
+}
+
+#movieReviews td {
+    font-size: 1.2em;
 }
