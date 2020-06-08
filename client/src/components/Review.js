@@ -3,12 +3,14 @@ import { useParams} from 'react-router-dom';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
 
+import Reely from '../media/reely.PNG';
+
 export default function Review(props) {
 
     let { movie } = useParams();
 
     const [title, setTitle] = useState(movie)
-    const [ombdData, setOmbd] = useState(null);
+    const [poster, setPoster] = useState(null);
     const [info, setInfo] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
@@ -27,10 +29,9 @@ export default function Review(props) {
                 
                 const date = data["Release Date"].split("/")
                 let poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]}&apikey=${api_key}`)
-                // Check if release date year === date[2]
                 if(poster.data.Error || poster.data.Poster === "N/A") poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]-1}&apikey=${api_key}`)
-                console.log(poster)
-                setOmbd(poster.data)
+                else if (poster.data.Director !== data.Director && parseInt(poster.data.Runtime.substring(0, poster.data.Runtime.lastIndexOf(' '))) !== data.Runtime) poster = await axios.get(`http://www.omdbapi.com/?t=${title}&apikey=${api_key}`)
+                setPoster(poster.data.Poster)
                 setLoading(false)
             }
             catch(e) {
@@ -44,7 +45,6 @@ export default function Review(props) {
 
     return (
         !isLoading ? <div id="movie">
-            {/* <button onClick={() => props.history.goBack()} >Back to the reviews</button> */}
             <div id="div1">
                 <h2>{title}</h2>
                 <table id="movieReviews">
@@ -68,7 +68,7 @@ export default function Review(props) {
                 <h3 id="butterScore">Butter Score: <span className={info["Butter Score"] >= 80 ? "buttered" : null} >{info["Butter Score"]}</span></h3>
             </div>
             <div id="div2">
-                <img id="poster" alt="No Poster Available For This Movie" src={ombdData.Poster} />
+                <img style={{border: !poster ? "none" : "inherit"}} id="poster" src={poster || Reely} />
                 <table id="movieInfo">
                     <tbody>
                         <tr>

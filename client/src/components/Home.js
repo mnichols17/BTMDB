@@ -4,6 +4,7 @@ import matchSorter from 'match-sorter';
 import Select from 'react-select';
 import ReactLoading from 'react-loading';
 
+import Logo from '../media/logo.png';
 import ReviewList from './ReviewList.js';
 
 const Filters = (props) => {
@@ -91,6 +92,7 @@ class Home extends React.Component {
 
         return (
             <div id="home">
+                <img id="logo" src={Logo} alt="LCB" />
                 <input onChange={this.queryChange} type="text" value={this.state.query} placeholder="Search by Title, Director or Genre" />
                 <div id="selectDiv">
                     <div id="scoreCategory" className="filters">
