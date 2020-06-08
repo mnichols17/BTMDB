@@ -205,8 +205,12 @@ input::placeholder {
         justify-content: center;
     }
 
-    .reviews {
-        max-width: 368px;
+    #home {
+        width: 426px;
+    }
+
+    .reviews li {
+        align-self: center;
     }
 
     #poster {
