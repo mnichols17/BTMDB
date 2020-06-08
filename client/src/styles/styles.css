@@ -89,9 +89,6 @@ input::placeholder {
 .reviews {
     display: flex;
     align-items: center;
-}
-
-.reviews {
     background: #F4F6F7;
     border: solid black 2px;
     border-radius: 10px;
@@ -206,6 +203,10 @@ input::placeholder {
     body {
         display: flex;
         justify-content: center;
+    }
+
+    .reviews {
+        max-width: 368px;
     }
 
     #poster {
