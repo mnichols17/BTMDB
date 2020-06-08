@@ -27,6 +27,7 @@ export default function Review(props) {
                 
                 const date = data["Release Date"].split("/")
                 let poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]}&apikey=${api_key}`)
+                // Check if release date year === date[2]
                 if(poster.data.Error || poster.data.Poster === "N/A") poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]-1}&apikey=${api_key}`)
                 console.log(poster)
                 setOmbd(poster.data)
@@ -46,9 +47,6 @@ export default function Review(props) {
             {/* <button onClick={() => props.history.goBack()} >Back to the reviews</button> */}
             <div id="div1">
                 <h2>{title}</h2>
-                <p id="plot">{ombdData.Plot}</p>
-                <p id="actors">Staring: {ombdData.Actors}</p>
-                <p id="awards">Awards: {ombdData.Awards}</p>
                 <table id="movieReviews">
                     <thead>
                         <tr>

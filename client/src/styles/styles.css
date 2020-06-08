@@ -14,7 +14,7 @@ body {
 }
 
 .loadingIcon {
-    padding: 50%;
+    padding: 15%;
 }
 
 #home {
@@ -113,10 +113,6 @@ input::placeholder {
     width: 100%;
 }
 
-#actors, #plot, #awards {
-    display: none;
-}
-
 #div1, #div2 {
     width: 100%;
     display: flex;
@@ -133,6 +129,10 @@ input::placeholder {
 #movie h2 {
     text-align: center;
     font-size: 1.3em;
+}
+
+.desktop {
+    display: none;
 }
 
 #movieInfo {
@@ -185,5 +185,20 @@ input::placeholder {
 @media screen and (max-width: 350px) {
     #poster, #movieInfo {
         width: 90%;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+    #poster {
+        width: 260px;
+    }
+
+    #movieReviews {
+        width: 310px;
     }
 }
