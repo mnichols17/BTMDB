@@ -8,7 +8,7 @@ export default function Review(props) {
     let { movie } = useParams();
 
     const [title, setTitle] = useState(movie)
-    const [poster, setPoster] = useState(null);
+    const [ombdData, setOmbd] = useState(null);
     const [info, setInfo] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
@@ -28,7 +28,8 @@ export default function Review(props) {
                 const date = data["Release Date"].split("/")
                 let poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]}&apikey=${api_key}`)
                 if(poster.data.Error || poster.data.Poster === "N/A") poster = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${date[2]-1}&apikey=${api_key}`)
-                setPoster(poster.data.Poster)
+                console.log(poster)
+                setOmbd(poster.data)
                 setLoading(false)
             }
             catch(e) {
@@ -42,54 +43,63 @@ export default function Review(props) {
 
     return (
         !isLoading ? <div id="movie">
-            <h2>{title}</h2>
-            <table id="movieReviews">
-                <thead>
-                    <tr>
-                        <th>Jeff</th>
-                        <th>Kenjac</th>
-                        <th>Trill</th>
-                        <th>Audience</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className={info.Jeff >= 80 ? "buttered" : null }>{info.Jeff || "N/A"}</td>
-                        <td className={info.Jack >= 80 ? "buttered" : null } >{info.Jack || "N/A"}</td>
-                        <td className={info.Trill >= 80 ? "buttered" : null }>{info.Trill || "N/A"}</td>
-                        <td className={info["Audience (LCB)"] >= 80 ? "buttered" : null }>{info["Audience (LCB)"] || "N/A"}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <img alt="No Poster Available For This Movie" src={poster} />
-            <table id="movieInfo">
-                <tbody>
-                    <tr>
-                        <td>Director:</td>
-                        <td>{info.Director}</td>
-                    </tr>
-                    <tr>
-                        <td>Release Date:</td>
-                        <td>{info["Release Date"]}</td>
-                    </tr>
-                    <tr>
-                        <td>Runtime:</td>
-                        <td>{info.Runtime} minutes</td>
-                    </tr>
-                    <tr>
-                        <td>Genre:</td>
-                        <td>{info.Genre}</td>
-                    </tr>
-                    <tr>
-                        <td>Sub-Genre:</td>
-                        <td>{info["Sub-Genre"]}</td>
-                    </tr>
-                    <tr>
-                        <td>LCB Episode:</td>
-                        <td>{info["Podcast Review"]}</td>
-                    </tr>
-                </tbody>
-            </table>
+            {/* <button onClick={() => props.history.goBack()} >Back to the reviews</button> */}
+            <div id="div1">
+                <h2>{title}</h2>
+                <p id="plot">{ombdData.Plot}</p>
+                <p id="actors">Staring: {ombdData.Actors}</p>
+                <p id="awards">Awards: {ombdData.Awards}</p>
+                <table id="movieReviews">
+                    <thead>
+                        <tr>
+                            <th>Jeff</th>
+                            <th>Kenjac</th>
+                            <th>Trill</th>
+                            <th>Audience</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td className={info.Jeff >= 80 ? "buttered" : null }>{info.Jeff || "N/A"}</td>
+                            <td className={info.Jack >= 80 ? "buttered" : null } >{info.Jack || "N/A"}</td>
+                            <td className={info.Trill >= 80 ? "buttered" : null }>{info.Trill || "N/A"}</td>
+                            <td className={info["Audience (LCB)"] >= 80 ? "buttered" : null }>{info["Audience (LCB)"] || "N/A"}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 id="butterScore">Butter Score: <span className={info["Butter Score"] >= 80 ? "buttered" : null} >{info["Butter Score"]}</span></h3>
+            </div>
+            <div id="div2">
+                <img id="poster" alt="No Poster Available For This Movie" src={ombdData.Poster} />
+                <table id="movieInfo">
+                    <tbody>
+                        <tr>
+                            <td>Director:</td>
+                            <td>{info.Director}</td>
+                        </tr>
+                        <tr>
+                            <td>Release Date:</td>
+                            <td>{info["Release Date"]}</td>
+                        </tr>
+                        <tr>
+                            <td>Runtime:</td>
+                            <td>{info.Runtime} minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Genre:</td>
+                            <td>{info.Genre}</td>
+                        </tr>
+                        <tr>
+                            <td>Sub-Genre:</td>
+                            <td>{info["Sub-Genre"]}</td>
+                        </tr>
+                        <tr>
+                            <td>LCB Episode:</td>
+                            <td>{info["Podcast Review"]}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div> : <ReactLoading className="loadingIcon" type={'spin'} color={'#FEDC19'} height={100} width={100}/>
     );
 }

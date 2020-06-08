@@ -113,17 +113,26 @@ input::placeholder {
     width: 100%;
 }
 
-#back {
-    float: left;
+#actors, #plot, #awards {
+    display: none;
 }
 
-#movie img {
+#div1, #div2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#poster {
     width: 100%;
     max-width: 300px;
+    border: 2px solid black;
 }
 
 #movie h2 {
     text-align: center;
+    font-size: 1.3em;
 }
 
 #movieInfo {
@@ -149,7 +158,7 @@ input::placeholder {
 }
 
 #movieReviews {
-    margin: 0% 0% 10% 0%;
+    margin: 0%;
     width: 90%;
     background: #F4F6F7;
     box-shadow: 0 4px 4px -2px black;
@@ -171,4 +180,10 @@ input::placeholder {
 
 #movieReviews td {
     font-size: 1.2em;
+}
+
+@media screen and (max-width: 350px) {
+    #poster, #movieInfo {
+        width: 90%;
+    }
 }

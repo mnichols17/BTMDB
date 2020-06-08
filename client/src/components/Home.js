@@ -93,7 +93,7 @@ class Home extends React.Component {
             <div id="home">
                 <input onChange={this.queryChange} type="text" value={this.state.query} placeholder="Search by Title, Director or Genre" />
                 <div id="selectDiv">
-                    <div className="filters">
+                    <div id="scoreCategory" className="filters">
                         <label>Score Category:</label>
                         <Select onChange={this.categoryChange} id="select" label="Score Category" defaultValue={options[0]} options={options} isSearchable={false}/>
                     </div>
