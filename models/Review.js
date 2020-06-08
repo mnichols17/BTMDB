@@ -16,4 +16,4 @@ const ReviewSchema = new Schema({
     podcast: Number
 })
 
-module.exports = Review = mongoose.model('Movies', ReviewSchema, 'movies');
+module.exports = Review = mongoose.model('Reviews', ReviewSchema, 'reviews');

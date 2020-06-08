@@ -5,7 +5,7 @@ require('dotenv').config()
 const Review = require('../models/Review');
 
 router.get("/:title", (req, res) => {
-    Review.find({Title: req.params.title})
+    Review.find({title: req.params.title})
     .then(review => res.json({
         review,
         key: process.env.API_KEY

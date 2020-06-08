@@ -28,7 +28,7 @@ class Home extends React.Component {
         reviews: [],
         query: "",
         loadNum: 15,
-        category: "Butter Score",
+        category: "butter",
         sort: "default",
         isLoading: true
     }
@@ -42,7 +42,7 @@ class Home extends React.Component {
             })
         })
         .catch(res => {
-            //alert("Error connecting to DB. Refresh the page and try again.")
+            alert("Error connecting to DB. Refresh the page and try again.")
         })
     }
 
@@ -70,14 +70,14 @@ class Home extends React.Component {
 
     render() {
         const options = [
-            {value: "Butter Score", label: "Butter Score"},
-            {value: "Jeff", label: "Jeff D. Lowe"},
-            {value: "Jack", label: "Jack Kennedy"},
-            {value: "Trill", label: "Trill Ballins"},
-            {value: "Audience (LCB)", label: "Audience"}
+            {value: "butter", label: "Butter Score"},
+            {value: "jeff", label: "Jeff D. Lowe"},
+            {value: "jack", label: "Jack Kennedy"},
+            {value: "trill", label: "Trill Ballins"},
+            {value: "audience", label: "Audience"}
         ]
 
-        const reviews = this.state.query === "" ? this.state.reviews : matchSorter(this.state.reviews, this.state.query, {keys: ['Title', "Director", "Genre", "Sub-Genre"]});
+        const reviews = this.state.query === "" ? this.state.reviews : matchSorter(this.state.reviews, this.state.query, {keys: ['title', "director", "genre", "subGenre"]});
         
         switch(this.state.sort){
             case("high"):
@@ -94,6 +94,7 @@ class Home extends React.Component {
             <div id="home">
                 <img id="logo" src={Logo} alt="LCB" />
                 <input onChange={this.queryChange} type="text" value={this.state.query} placeholder="Search by Title, Director or Genre" />
+                <p id="update">Last updated: 6/8/2020</p>
                 <div id="selectDiv">
                     <div id="scoreCategory" className="filters">
                         <label>Score Category:</label>
