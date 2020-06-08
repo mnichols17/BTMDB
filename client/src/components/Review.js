@@ -30,23 +30,13 @@ export default function Review(props) {
         const getData = async() => {
             try {
                 const response = await axios.get(`/api/reviews/${movie}`)
-                const data = response.data.review[0];
-                const api_key = response.data.key;
-                setInfo(data)
-                
-                const searchTitle = title.includes("(20") ? (title.substring(0, title.lastIndexOf('(20'))) : title
-                const date = data.release.split("/")
-                let poster = await axios.get(`http://www.omdbapi.com/?t=${searchTitle}&y=${date[2]}&apikey=${api_key}`)
-                console.log(poster)
-                if(poster.data.Error || poster.data.Poster === "N/A") poster = await axios.get(`http://www.omdbapi.com/?t=${searchTitle}&y=${date[2]-1}&apikey=${api_key}`)
-                else if (poster.data.Director !== data.director && parseInt(poster.data.Runtime.substring(0, poster.data.Runtime.lastIndexOf(' '))) !== data.runtime) poster = await axios.get(`http://www.omdbapi.com/?t=${searchTitle}&apikey=${api_key}`)
-                setPoster(poster.data.Poster)
-                console.log(poster)
+                if(!response.data.review) throw ("Movie doesn't exist. Try again")
+                setInfo(response.data.review);
+                setPoster(response.data.poster);
                 setLoading(false)
             }
             catch(e) {
-                console.log(e)
-                alert("That movie doesn't exist. Try again")
+                alert(e)
                 props.history.push("/")
             }
         }
