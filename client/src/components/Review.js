@@ -69,7 +69,7 @@ export default function Review(props) {
                 <h3 id="butterScore">Butter Score: <span className={info.butter >= 80 ? "buttered" : null} >{info.butter}</span></h3>
             </div>
             <div id="div2">
-                <img style={{border: !poster ? "none" : "inherit"}} id="poster" src={poster || Reely} />
+                <img style={{border: !poster ? "none" : null}} id="poster" src={poster || Reely} />
                 <table id="movieInfo">
                     <tbody>
                         <tr>

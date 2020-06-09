@@ -130,7 +130,7 @@ input::placeholder {
 #poster {
     width: 100%;
     max-width: 300px;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 #movie h2 {
