@@ -94,7 +94,7 @@ class Home extends React.Component {
             <div id="home">
                 <img id="logo" src={Logo} alt="LCB" />
                 <input onChange={this.queryChange} type="text" value={this.state.query} placeholder="Search by Title, Director or Genre" />
-                <p id="update">Last updated: 6/8/2020</p>
+                <p id="update">Last updated: 6/10/2020</p>
                 <div id="selectDiv">
                     <div id="scoreCategory" className="filters">
                         <label>Score Category:</label>

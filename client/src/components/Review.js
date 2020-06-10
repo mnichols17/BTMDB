@@ -44,6 +44,7 @@ export default function Review(props) {
         getData();
     }, []);
 
+    console.log(info.jeff)
     return (
         !isLoading ? <div id="movie">
             <div id="div1">
@@ -59,10 +60,10 @@ export default function Review(props) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td className={info.jeff >= 70 ? "buttered" : null }>{info.jeff || "N/A"}</td>
-                            <td className={info.jack >= 70 ? "buttered" : null } >{info.jack || "N/A"}</td>
-                            <td className={info.trill >= 70 ? "buttered" : null }>{info.trill || "N/A"}</td>
-                            <td className={info.audience >= 70 ? "buttered" : null }>{info.audience || "N/A"}</td>
+                            <td className={info.jeff >= 70 ? "buttered" : null }>{info.jeff !== null ? info.jeff : "N/A"}</td>
+                            <td className={info.jack >= 70 ? "buttered" : null } >{info.jack !== null ? info.jack : "N/A"}</td>
+                            <td className={info.trill >= 70 ? "buttered" : null }>{info.trill !== null ? info.trill : "N/A"}</td>
+                            <td className={info.audience >= 70 ? "buttered" : null }>{info.audience !== null ? info.audience : "N/A"}</td>
                         </tr>
                     </tbody>
                 </table>
